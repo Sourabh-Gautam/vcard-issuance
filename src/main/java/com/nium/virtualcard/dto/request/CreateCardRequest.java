@@ -10,11 +10,9 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class CreateCardRequest {
-
-    @NotBlank
+    @NotBlank(message = "Cardholder name must not be empty")
     private String cardholderName;
 
-    @Positive
+    @Positive(message = "Initial balance must be greater than zero")
     private BigDecimal initialBalance;
-
 }

@@ -1,18 +1,26 @@
 package com.nium.virtualcard.dto.response;
 
+import com.nium.virtualcard.entity.Card;
+import com.nium.virtualcard.service.CardService;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Setter
 @Getter
 public class CardResponse {
 
-    private Long id;
-    private String cardholderName;
-    private BigDecimal balance;
-    private Instant createdAt;
+    private final Long id;
+    private final String cardholderName;
+    private final BigDecimal balance;
+    private final Instant createdAt;
+
+    public CardResponse(Card card) {
+        this.id = card.getId();
+        this.cardholderName = card.getCardholderName();
+        this.balance = card.getBalance();
+        this.createdAt = card.getCreatedAt();
+    }
 
 }
+
