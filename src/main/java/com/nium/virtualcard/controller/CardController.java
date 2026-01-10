@@ -2,8 +2,10 @@ package com.nium.virtualcard.controller;
 
 import com.nium.virtualcard.dto.request.CreateCardRequest;
 import com.nium.virtualcard.dto.request.SpendRequest;
+import com.nium.virtualcard.dto.request.TopUpRequest;
 import com.nium.virtualcard.dto.response.CardResponse;
-import com.nium.virtualcard.dto.response.RemainingBalanceResponse;
+import com.nium.virtualcard.dto.response.AvailableBalanceResponse;
+import com.nium.virtualcard.dto.response.TransactionResponse;
 import com.nium.virtualcard.entity.Card;
 import com.nium.virtualcard.service.CardService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +14,8 @@ import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cards")
@@ -35,11 +39,11 @@ public class CardController {
     @Operation(summary = "Spend amount from a virtual card")
     @PostMapping("/{id}/spend")
     @ResponseStatus(HttpStatus.OK)
-    public RemainingBalanceResponse spend(
+    public AvailableBalanceResponse spend(
             @PathVariable Long id,
             @Valid @RequestBody SpendRequest request) {
         Card updatedCard = cardService.spend(id, request.getAmount());
-        return new RemainingBalanceResponse(updatedCard.getId(), updatedCard.getBalance());
+        return new AvailableBalanceResponse(updatedCard.getId(), updatedCard.getBalance());
     }
 
     @Operation(summary = "Get virtual card details")
@@ -49,5 +53,28 @@ public class CardController {
         return new CardResponse(cardService.getCard(id));
     }
 
+    @Operation(summary = "Top up a virtual card")
+    @PostMapping("/{id}/topup")
+    @ResponseStatus(HttpStatus.OK)
+    public AvailableBalanceResponse topUp(
+            @PathVariable Long id,
+            @Valid @RequestBody TopUpRequest request) {
+
+        Card updatedCard = cardService.topUp(id, request.getAmount());
+        return new AvailableBalanceResponse(
+                updatedCard.getId(),
+                updatedCard.getBalance()
+        );
+    }
+
+    @Operation(summary = "Get transaction history for a card")
+    @GetMapping("/{id}/transactions")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TransactionResponse> getTransactions(@PathVariable Long id) {
+        return cardService.getTransactions(id)
+                .stream()
+                .map(TransactionResponse::new)
+                .toList();
+    }
 }
 
