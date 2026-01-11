@@ -47,10 +47,10 @@ public class CardController {
     }
 
     @Operation(summary = "Get virtual card details")
-    @GetMapping("/{id}")
+    @GetMapping("/{cardId}")
     @ResponseStatus(HttpStatus.OK)
-    public CardResponse getCard(@PathVariable Long id) {
-        return new CardResponse(cardService.getCard(id));
+    public CardResponse getCard(@PathVariable Long cardId) {
+        return new CardResponse(cardService.getCard(cardId));
     }
 
     @Operation(summary = "Top up a virtual card")
