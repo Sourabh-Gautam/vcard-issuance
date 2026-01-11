@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
                 description = "APIs for creating and spending virtual cards",
                 version = "1.0",
                 contact = @Contact(
-                        name = "Candidate",
-                        email = "candidate@email.com"
+                        name = "Sourabh Gautam",
+                        email = "sourabhpaul87448@email.com"
                 ),
                 license = @License(
-                        name = "Apache 2.0"
+                        name = "For evaluation purpose only"
                 )
         )
 )

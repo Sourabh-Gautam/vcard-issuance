@@ -1,5 +1,6 @@
 package com.nium.service;
 
+import com.nium.virtualcard.dto.request.CreateCardRequest;
 import com.nium.virtualcard.entity.Card;
 import com.nium.virtualcard.entity.Transaction;
 import com.nium.virtualcard.exception.InsufficientBalanceException;

@@ -3,7 +3,6 @@ package com.nium.virtualcard.service;
 import com.nium.virtualcard.dto.request.CreateCardRequest;
 import com.nium.virtualcard.entity.Card;
 import com.nium.virtualcard.entity.Transaction;
-import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;

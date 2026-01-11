@@ -37,12 +37,12 @@ public class CardController {
     }
 
     @Operation(summary = "Spend amount from a virtual card")
-    @PostMapping("/{id}/spend")
+    @PostMapping("/{cardId}/spend")
     @ResponseStatus(HttpStatus.OK)
     public AvailableBalanceResponse spend(
-            @PathVariable Long id,
+            @PathVariable Long cardId,
             @Valid @RequestBody SpendRequest request) {
-        Card updatedCard = cardService.spend(id, request.getAmount());
+        Card updatedCard = cardService.spend(cardId, request.getAmount());
         return new AvailableBalanceResponse(updatedCard.getId(), updatedCard.getBalance());
     }
 
@@ -54,13 +54,13 @@ public class CardController {
     }
 
     @Operation(summary = "Top up a virtual card")
-    @PostMapping("/{id}/topup")
+    @PostMapping("/{cardId}/topup")
     @ResponseStatus(HttpStatus.OK)
     public AvailableBalanceResponse topUp(
-            @PathVariable Long id,
+            @PathVariable Long cardId,
             @Valid @RequestBody TopUpRequest request) {
 
-        Card updatedCard = cardService.topUp(id, request.getAmount());
+        Card updatedCard = cardService.topUp(cardId, request.getAmount());
         return new AvailableBalanceResponse(
                 updatedCard.getId(),
                 updatedCard.getBalance()
@@ -68,10 +68,10 @@ public class CardController {
     }
 
     @Operation(summary = "Get transaction history for a card")
-    @GetMapping("/{id}/transactions")
+    @GetMapping("/{cardId}/transactions")
     @ResponseStatus(HttpStatus.OK)
-    public List<TransactionResponse> getTransactions(@PathVariable Long id) {
-        return cardService.getTransactions(id)
+    public List<TransactionResponse> getTransactions(@PathVariable Long cardId) {
+        return cardService.getTransactions(cardId)
                 .stream()
                 .map(TransactionResponse::new)
                 .toList();

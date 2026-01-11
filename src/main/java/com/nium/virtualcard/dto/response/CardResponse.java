@@ -1,7 +1,6 @@
 package com.nium.virtualcard.dto.response;
 
 import com.nium.virtualcard.entity.Card;
-import com.nium.virtualcard.service.CardService;
 import lombok.Getter;
 
 import java.math.BigDecimal;
